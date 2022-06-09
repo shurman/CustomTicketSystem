@@ -9,7 +9,7 @@ class A_Ticket(admin.ModelAdmin):
         ('2', {'fields':('t_type', 'severity')}),
         ('3', {'fields':('creator', 'create_date', 'last_date')}),
     )
-    readonly_fields = ('creator', 'create_date', 'last_date')
+    readonly_fields = ('create_date', 'last_date')
     search_fields = ('id',)
 
 

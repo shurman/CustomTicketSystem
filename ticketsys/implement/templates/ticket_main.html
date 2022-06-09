@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div><a href="{% url 'user_main' %}">Back</a></div>
+        <div>
+        {{ ticket.id }}
+        {{ ticket.title }}
+        {{ ticket.get_status_display }}
+        {{ ticket.creator }}
+        {{ ticket.creator_date }}
+        </div>
+
+    </body>
+</html>

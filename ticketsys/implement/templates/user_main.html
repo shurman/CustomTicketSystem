@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <body>
+	    <a href="{% url 'user_logout' %}">登出</a>
+
+        <div>
+            <table>
+                <thead>
+                    <td>Summary</td>
+                    <td>Status</td>
+                    <td>Creator</td>
+                    <td>Date</td>
+                </thead>
+
+                {% if ticket_list %}
+                <tbody>
+                {% for ticket in ticket_list %}
+                <tr>
+                    <td><a href="/ticket/{{ ticket.id }}">{{ ticket.title }}</a></td>
+                    <td>{{ ticket.get_status_display }}</td>
+                    <td>{{ ticket.creator }}</td>
+                    <td>{{ ticket.create_date }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+                {% endif %}
+            </table>
+
+        </div>
+    </body>
+</html>
