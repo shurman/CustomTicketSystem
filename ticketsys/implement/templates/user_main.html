@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
     <body>
-	    <a href="{% url 'user_logout' %}">登出</a>
+	    <a href="{% url 'user_logout' %}">Logout</a>
+	    {%if is_qa or is_pm%}<a href="{% url 'ticket_new' %}">New Ticket</a>{%endif%}
 
         <div>
             <table>
                 <thead>
+                    <td>Type</td>
                     <td>Summary</td>
                     <td>Status</td>
                     <td>Creator</td>
@@ -16,6 +18,7 @@
                 <tbody>
                 {% for ticket in ticket_list %}
                 <tr>
+                    <td>{{ ticket.get_t_type_display }}</td>
                     <td><a href="/ticket/{{ ticket.id }}">{{ ticket.title }}</a></td>
                     <td>{{ ticket.get_status_display }}</td>
                     <td>{{ ticket.creator }}</td>

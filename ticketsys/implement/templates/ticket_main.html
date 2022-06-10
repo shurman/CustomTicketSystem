@@ -3,11 +3,47 @@
     <body>
         <div><a href="{% url 'user_main' %}">Back</a></div>
         <div>
-        {{ ticket.id }}
-        {{ ticket.title }}
-        {{ ticket.get_status_display }}
-        {{ ticket.creator }}
-        {{ ticket.creator_date }}
+            <form action="{{ request.path }}" method="post">
+                {% csrf_token %}
+                <div>
+                    <label>Type</label>
+                    <select id="t_type" name="t_type" {%if ticket%} disabled{%endif%}>
+                        {%if ticket or is_qa %}<option value="0"{% if ticket.t_type == '0' %} selected{%endif%}>Bug</option>{%endif%}
+                        {%if ticket or is_pm %}<option value="1"{% if ticket.t_type == '1' %} selected{%endif%}>Feature Request</option>{%endif%}
+                    </select>
+                </div>
+                <div>
+                    <label>Summary</label>
+                    <input type="text" name="title" required id="title" value="{{ ticket.title }}"{%if ticket and is_rd%} disabled{%endif%}>
+                </div>
+                <div>
+                    <label>Status</label>
+                    <select id="status" name="status" {%if not ticket%} disabled{%endif%}>
+                        <option value="0"{% if ticket.status == '0' %} selected{%endif%}>Open</option>
+                        {%if ticket%}<option value="1"{% if ticket.status == '1' %} selected{%endif%}>Resolve</option>{%endif%}
+                        {%if is_qa or is_pm%}<option value="2"{% if ticket.status == '2' %} selected{%endif%}>Close</option>{%endif%}
+                    </select>
+                </div>
+                <div>
+                    <label>Severity</label>
+                    <select id="severity" name="severity"{%if ticket and is_rd%} disabled{%endif%}>
+                        <option value="0"{% if ticket.severity == '0' %} selected{%endif%}>Low</option>
+                        <option value="1"{% if ticket.severity == '1' %} selected{%endif%}>Medium</option>
+                        <option value="2"{% if ticket.severity == '2' %} selected{%endif%}>High</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Description</label>
+                    <textarea name="description" required id="description" rows="5" style="width:300px;"{%if ticket and is_rd%} disabled{%endif%}>{{ ticket.description }}</textarea>
+                </div>
+                {% if ticket %}
+                <div>
+                    Creator
+                    {{ ticket.creator }}
+                </div>
+                {% endif %}
+                <input type="submit" value="Submit" style="color: white; background-color: #5971AA; padding: 8px; border-width: 1px; width: 120px;" />
+            </form>
         </div>
 
     </body>
