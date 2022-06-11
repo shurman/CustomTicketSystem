@@ -1,50 +1,55 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <title>{%if ticket%}{{ticket.title}}{%else%}New Ticket{%endif%} | Ticket System</title>
+    </head>
     <body>
-        <div><a href="{% url 'user_main' %}">Back</a></div>
-        <div>
+        <div style="margin:20px;"><a href="{% url 'user_main' %}">Back</a></div>
+        <div style="max-width:600px; margin:auto;">
             <form action="{{ request.path }}" method="post">
                 {% csrf_token %}
-                <div>
-                    <label>Type</label>
-                    <select id="t_type" name="t_type" {%if ticket%} disabled{%endif%}>
+                <div class="mb-3">
+                    <label class="form-label">Type</label>
+                    <select class="form-select" id="t_type" name="t_type" {%if ticket and not is_adm%} disabled{%endif%}>
                         {%if ticket or is_qa %}<option value="0"{% if ticket.t_type == '0' %} selected{%endif%}>Bug</option>{%endif%}
                         {%if ticket or is_pm %}<option value="1"{% if ticket.t_type == '1' %} selected{%endif%}>Feature Request</option>{%endif%}
+                        {%if ticket or is_qa %}<option value="2"{% if ticket.t_type == '2' %} selected{%endif%}>Test Case</option>{%endif%}
                     </select>
                 </div>
-                <div>
-                    <label>Summary</label>
-                    <input type="text" name="title" required id="title" value="{{ ticket.title }}"{%if ticket and is_rd%} disabled{%endif%}>
+                <div class="mb-3">
+                    <label class="form-label">Summary</label>
+                    <input class="form-control" type="text" name="title" required id="title" value="{{ ticket.title }}"{%if ticket and not info_flag%} disabled{%endif%}>
                 </div>
-                <div>
-                    <label>Status</label>
-                    <select id="status" name="status" {%if not ticket%} disabled{%endif%}>
-                        <option value="0"{% if ticket.status == '0' %} selected{%endif%}>Open</option>
+                <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" id="status" name="status" {%if not ticket or not status_flag%} disabled{%endif%}>
+                        <option value="0"{% if ticket.status == '0'%} selected{%endif%}>Open</option>
                         {%if ticket%}<option value="1"{% if ticket.status == '1' %} selected{%endif%}>Resolve</option>{%endif%}
-                        {%if is_qa or is_pm%}<option value="2"{% if ticket.status == '2' %} selected{%endif%}>Close</option>{%endif%}
+                        {%if is_qa or is_pm or ticket.status == '2'%}<option value="2"{% if ticket.status == '2' %} selected{%endif%}>Close</option>{%endif%}
                     </select>
                 </div>
-                <div>
-                    <label>Severity</label>
-                    <select id="severity" name="severity"{%if ticket and is_rd%} disabled{%endif%}>
+                <div class="mb-3">
+                    <label class="form-label">Severity</label>
+                    <select class="form-select" id="severity" name="severity"{%if ticket and not info_flag%} disabled{%endif%}>
                         <option value="0"{% if ticket.severity == '0' %} selected{%endif%}>Low</option>
                         <option value="1"{% if ticket.severity == '1' %} selected{%endif%}>Medium</option>
                         <option value="2"{% if ticket.severity == '2' %} selected{%endif%}>High</option>
                     </select>
                 </div>
-                <div>
-                    <label>Description</label>
-                    <textarea name="description" required id="description" rows="5" style="width:300px;"{%if ticket and is_rd%} disabled{%endif%}>{{ ticket.description }}</textarea>
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" name="description" required id="description" rows="5" style="width:500px;"{%if ticket and not info_flag%} disabled{%endif%}>{{ ticket.description }}</textarea>
                 </div>
                 {% if ticket %}
-                <div>
-                    Creator
-                    {{ ticket.creator }}
+                <div class="mb-3">
+                    <label class="form-label">Creator</label>
+                    <input class="form-control" type="text" value="{{ ticket.creator }}" disabled></input>
                 </div>
                 {% endif %}
-                <input type="submit" value="Submit" style="color: white; background-color: #5971AA; padding: 8px; border-width: 1px; width: 120px;" />
+                <input class="btn btn-primary" type="submit" value="Submit" />
             </form>
         </div>
-
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </body>
 </html>

@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html>
-    <body>
-	    <a href="{% url 'user_logout' %}">Logout</a>
-	    {%if is_qa or is_pm%}<a href="{% url 'ticket_new' %}">New Ticket</a>{%endif%}
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <title>Main | Ticket System</title>
+    </head>
+    <body style="padding: 16px;">
+	    <div style="text-align:right; margin:10px; 20px;">Hi {{request.user.username}}! <a href="{% url 'user_logout' %}">Logout</a></div>
+	    <div>{%if not is_rd%}<a href="{% url 'ticket_new' %}">New Ticket</a>{%endif%}</div>
 
-        <div>
-            <table>
+        <div class="table-responsive">
+            <table class="table table-striped">
                 <thead>
-                    <td>Type</td>
-                    <td>Summary</td>
-                    <td>Status</td>
-                    <td>Creator</td>
-                    <td>Date</td>
+                    <td style="width:10%;">Type</td>
+                    <td style="width:30%;">Summary</td>
+                    <td style="width:10%;">Status</td>
+                    <td style="width:10%;">Severity</td>
+                    <td style="width:15%;">Creator</td>
+                    <td style="width:15%;">Date</td>
                 </thead>
 
                 {% if ticket_list %}
@@ -21,6 +26,7 @@
                     <td>{{ ticket.get_t_type_display }}</td>
                     <td><a href="/ticket/{{ ticket.id }}">{{ ticket.title }}</a></td>
                     <td>{{ ticket.get_status_display }}</td>
+                    <td>{{ ticket.get_severity_display }}</td>
                     <td>{{ ticket.creator }}</td>
                     <td>{{ ticket.create_date }}</td>
                 </tr>
@@ -30,5 +36,6 @@
             </table>
 
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </body>
 </html>

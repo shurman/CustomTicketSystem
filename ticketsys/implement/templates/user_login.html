@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <title>Login | Ticket System</title>
+    </head>
     <body>
         <div style="display:flex;">
-            <div style="margin:60px 60px auto auto;"></div>
-            <div style="margin:auto auto auto 0px;">
+            <div style="margin:auto;">
                 <form action="{{ request.path }}" method="post">
                     {% csrf_token %}
                     {{ form.as_p }}
                     <input type="submit" value="登入" style="color: white; background-color: #5971AA; padding: 8px; border-width: 1px; width: 120px;" />
                 </form>
-	    </div>
+    	    </div>
         </div>
     </body>
 </html>
