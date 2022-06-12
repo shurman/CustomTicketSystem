@@ -6,7 +6,10 @@
     </head>
     <body style="padding: 16px;">
 	    <div style="text-align:right; margin:10px; 20px;">Hi {{request.user.username}}! <a href="{% url 'user_logout' %}">Logout</a></div>
-	    <div>{%if not is_rd%}<a href="{% url 'ticket_new' %}">New Ticket</a>{%endif%}</div>
+	    <div>
+            {%if not is_rd%}<a href="{% url 'ticket_new' %}">[New Ticket]</a>{%endif%}
+            {%if is_adm%}<a href="{% url 'user_create' %}">[Create User]</a>{%endif%}
+        </div>
 
         <div class="table-responsive">
             <table class="table table-striped">

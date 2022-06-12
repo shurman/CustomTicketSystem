@@ -24,5 +24,6 @@ urlpatterns = [
     path('ticket', user_main, name="user_main"),
     path('ticket/new', ticket_new, name="ticket_new"),
     path('ticket/<int:tid>', ticket_show),
+    path('user/new', user_create, name="user_create"),
     path('logout', user_logout, name="user_logout"),
 ]

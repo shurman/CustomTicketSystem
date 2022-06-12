@@ -12,9 +12,9 @@
                 <div class="mb-3">
                     <label class="form-label">Type</label>
                     <select class="form-select" id="t_type" name="t_type" {%if ticket and not is_adm%} disabled{%endif%}>
-                        {%if ticket or is_qa %}<option value="0"{% if ticket.t_type == '0' %} selected{%endif%}>Bug</option>{%endif%}
-                        {%if ticket or is_pm %}<option value="1"{% if ticket.t_type == '1' %} selected{%endif%}>Feature Request</option>{%endif%}
-                        {%if ticket or is_qa %}<option value="2"{% if ticket.t_type == '2' %} selected{%endif%}>Test Case</option>{%endif%}
+                        {%if ticket or is_qa or is_adm%}<option value="0"{% if ticket.t_type == '0' %} selected{%endif%}>Bug</option>{%endif%}
+                        {%if ticket or is_pm or is_adm%}<option value="1"{% if ticket.t_type == '1' %} selected{%endif%}>Feature Request</option>{%endif%}
+                        {%if ticket or is_qa or is_adm%}<option value="2"{% if ticket.t_type == '2' %} selected{%endif%}>Test Case</option>{%endif%}
                     </select>
                 </div>
                 <div class="mb-3">

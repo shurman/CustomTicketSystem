@@ -4,6 +4,7 @@ from django.urls import reverse, resolve
 from django.utils import timezone
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User,Group
 from .models import *
 from .forms import *
 
@@ -37,6 +38,10 @@ def user_main(request):
         is_pm = True
     else:
         is_pm = False
+    if request.user.groups.filter(name='Administrator').exists():
+        is_adm = True
+    else:
+        is_adm = True
 
     return render(request, 'user_main.html', locals())
 
@@ -116,3 +121,20 @@ def ticket_show(request, tid):
         status_flag = True
 
     return render(request, 'ticket_main.html', locals())
+
+@login_required()
+def user_create(request):
+    if not request.user.groups.filter(name='Administrator').exists():
+        return HttpResponseRedirect(reverse('user_main'))
+    if request.method == 'POST':
+        username = request.POST.get('username','')
+        g = Group.objects.get(name=request.POST.get('role',''))
+
+        if username != '' and g:
+            newuser = User.objects.create_user(username=username,password=request.POST.get('password',''))
+            g = Group.objects.get(name=request.POST.get('role',''))
+            g.user_set.add(newuser)
+
+        return HttpResponseRedirect(reverse('user_main'))
+
+    return render(request, 'user_create.html', locals())
