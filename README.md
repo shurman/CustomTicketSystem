@@ -1,8 +1,14 @@
 # TicketSystem w/ Django
 
+## Screenshot
+![Login Page](login.jpg)
+![Main Page](main.jpg)
+![Ticket Page](ticket.jpg)
+
 ## Environment
 1. Python3
-2. Django 4.0.5
+1. Django 4.0.5
+1. Run Test Server ```python3 ticketsys/manage.py runserver 0.0.0.0:8000```
 
 ## Usage
 ### Login URL
@@ -15,19 +21,19 @@
 * ```ADMIN``` / ```admin123456```
 
 ### Phase I usage flow
-1. QA Creates ticket by filling in [New Ticket] page
-1. RD switches ticket to [Resolve]
-1. QA can swith to [Close] if QA acknowledges. If not, QA may switch back to [Open]
+1. QA Creates ticket by filling in ```New Ticket``` page
+1. RD switches ticket to ```Resolve```
+1. QA can swith to [Close] if QA acknowledges. If not, QA may switch back to ```Open```
 
 ### Phase II usage flow
 * For QA
-  1. QA creates ticket by filling in [New Ticket] page (type can select either [Bug] or [Test Case]).
-  2. QA can switch status to either [Close] or [Open] only when a RD swiches to [Resolve].
+  1. QA creates ticket by filling in ```New Ticket``` page (type can select either ```Bug``` or ```Test Case```).
+  2. QA can switch status to either ```Close``` or ```Open``` only when a RD swiches to ```Resolve```.
 * For PM
-  1. PM creates ticket by filling in [New Ticket] page (type will automatically select [Feature Request]).
-  2. PM can switch status to either [Close] or [Open] only when a RD swiches to [Resolve].
+  1. PM creates ticket by filling in ```New Ticket``` page (type will automatically select ```Feature Request```).
+  2. PM can switch status to either ```Close``` or ```Open``` only when a RD swiches to ```Resolve```.
 * For Administrator
-  1. Administrator may create user by filling in [Create User] page.
+  1. Administrator may create user by filling in ```Create User``` page.
   2. Administrator can create/modify ticket anytime.
 
 ## System Architecture

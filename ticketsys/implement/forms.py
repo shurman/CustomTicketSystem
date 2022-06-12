@@ -4,8 +4,8 @@ from django.core.exceptions import ValidationError
 from django.contrib import auth
 
 class LoginForm(forms.Form):
-    username = forms.CharField(label="帳號", max_length=25, required=True)
-    password = forms.CharField(label="密碼", widget=forms.PasswordInput, required=True)
+    username = forms.CharField(label="Username", max_length=25, required=True)
+    password = forms.CharField(label="Password", widget=forms.PasswordInput, required=True)
 
     def clean(self):
         username = self.cleaned_data.get('username')

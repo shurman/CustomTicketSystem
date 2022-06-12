@@ -6,10 +6,11 @@
     <body>
         <div style="display:flex;">
             <div style="margin:auto;">
+                <h2>User Login</h2>
                 <form action="{{ request.path }}" method="post">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <input type="submit" value="登入" style="color: white; background-color: #5971AA; padding: 8px; border-width: 1px; width: 120px;" />
+                    <input type="submit" value="Login" style="color: white; background-color: #5971AA; padding: 8px; border-width: 1px; width: 120px;" />
                 </form>
     	    </div>
         </div>
